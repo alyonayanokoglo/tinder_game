@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <div className="brand">Кейс-тренажёр</div>
+        <div className="brand">КЕЙС_ТРЕНАЖЕР</div>
         <div className="sub">Свайп вправо — Было, влево — Не было</div>
       </header>
       <main>
