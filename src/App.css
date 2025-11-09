@@ -361,13 +361,13 @@
 /* Адаптация для мобильных (до 480px) */
 @media (max-width: 480px) {
   #root {
-    padding: 12px;
+    padding: 16px;
     height: 100vh;
     overflow: hidden;
   }
 
   .app {
-    gap: 6px;
+    gap: 8px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -378,14 +378,15 @@
   }
 
   .brand {
-    font-size: 28px;
-    line-height: 1.1;
-    margin: 0 0 4px 0;
+    font-size: 26px;
+    line-height: 1;
+    margin: 0 0 2px 0;
   }
 
   .sub {
-    font-size: 12px;
+    font-size: 11px;
     margin: 0;
+    line-height: 1.2;
   }
 
   .deck {
@@ -397,12 +398,13 @@
   }
 
   .card {
-    width: 90%;
+    width: 88%;
     max-width: 340px;
     height: auto;
-    max-height: 65vh;
+    max-height: 60vh;
     aspect-ratio: 3 / 4;
     min-height: auto;
+    margin: auto;
   }
 
   .card-inner {
