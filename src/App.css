@@ -361,50 +361,29 @@
 /* Адаптация для мобильных (до 480px) */
 @media (max-width: 480px) {
   #root {
-    padding: 16px;
-    height: 100vh;
-    overflow: hidden;
+    padding: 4px;
   }
 
   .app {
-    gap: 8px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .app-header {
-    flex-shrink: 0;
+    gap: 4px;
   }
 
   .brand {
-    font-size: 26px;
-    line-height: 1;
-    margin: 0 0 2px 0;
-  }
-
-  .sub {
-    font-size: 11px;
-    margin: 0;
+    font-size: 32px;
     line-height: 1.2;
   }
 
+  .sub {
+    font-size: 13px;
+  }
+
   .deck {
-    flex: 1;
-    height: auto;
-    min-height: 0;
-    padding-bottom: 28px;
-    position: relative;
+    height: 75vh;
   }
 
   .card {
-    width: 88%;
-    max-width: 340px;
-    height: auto;
-    max-height: 60vh;
-    aspect-ratio: 3 / 4;
-    min-height: auto;
-    margin: auto;
+    width: min(340px, 85vw);
+    min-height: 350px;
   }
 
   .card-inner {
@@ -437,36 +416,20 @@
 
   .modal {
     width: 92vw;
-    max-height: 85vh;
+    max-height: 90vh;
   }
 
   .modal-header h2 {
-    font-size: 20px;
-    margin: 8px 0;
+    font-size: 22px;
   }
 
   .modal-body {
-    padding: 8px 12px;
-    gap: 6px;
-    font-size: 13px;
-  }
-  
-  .section {
-    margin-top: 6px;
-  }
-  
-  .section-title {
-    margin-bottom: 4px;
-    font-size: 13px;
-  }
-  
-  .pill {
-    padding: 3px 8px;
-    font-size: 11px;
+    padding: 10px 12px;
+    gap: 8px;
   }
 
   .modal-header {
-    padding: 8px 12px;
+    padding: 10px 12px;
   }
 
   .modal-actions {
@@ -480,33 +443,20 @@
 
   .protection {
     padding: 8px;
-    font-size: 12px;
-    line-height: 1.4;
+    font-size: 13px;
   }
 
   .final-score .score-number {
-    font-size: 56px;
+    font-size: 64px;
   }
 
   .final-message {
-    font-size: 14px !important;
-  }
-  
-  .modal-backdrop {
-    overflow: hidden;
+    font-size: 16px !important;
   }
 
   .progress,
   .score {
     font-size: 11px;
-    bottom: -22px;
-  }
-  
-  .progress {
-    right: 8px;
-  }
-  
-  .score {
-    left: 8px;
+    bottom: -20px;
   }
 }
