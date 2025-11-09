@@ -49,6 +49,11 @@ export function SwipeDeck({ cases, onFinish }: Props) {
         const parsed = JSON.parse(saved);
         const savedIndex = parsed?.index;
         const savedCorrect = parsed?.correct;
+        // Если игра была завершена, очищаем localStorage
+        if (typeof savedIndex === 'number' && savedIndex >= cases.length) {
+          localStorage.removeItem(STORAGE_KEY);
+          return;
+        }
         if (typeof savedIndex === 'number' && savedIndex >= 0 && savedIndex < cases.length) {
           setIndex(savedIndex);
         }
@@ -85,6 +90,13 @@ export function SwipeDeck({ cases, onFinish }: Props) {
     if (anyEvent.buttons !== undefined && anyEvent.buttons !== 1) return;
     dragControls.start(e);
   };
+
+  // Clear storage when game is finished
+  useEffect(() => {
+    if (!current) {
+      try { localStorage.removeItem(STORAGE_KEY); } catch {}
+    }
+  }, [current]);
 
   // Final screen when all cases are done
   if (!current) {
