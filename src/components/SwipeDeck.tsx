@@ -129,7 +129,10 @@ export function SwipeDeck({ cases, onFinish }: Props) {
             </p>
           </div>
           <div className="modal-actions">
-            <button className="next-btn" onClick={() => window.location.reload()}>
+            <button className="next-btn" onClick={() => {
+              try { localStorage.removeItem(STORAGE_KEY); } catch {}
+              window.location.reload();
+            }}>
               Начать заново
             </button>
           </div>

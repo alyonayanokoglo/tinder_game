@@ -21,7 +21,7 @@
 
   color-scheme: dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #3FC0EF;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -44,8 +44,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #242424;
-  background-image: url('./img/background.svg');
+  background-color: #3FC0EF;
+  background-image: url('./img/back.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

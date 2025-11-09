@@ -1,13 +1,13 @@
 #root {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 24px;
+  padding: 8px;
 }
 
 .app {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
 }
 
 .app-header {
@@ -23,16 +23,18 @@
 
 .sub {
   opacity: 0.75;
-  margin-top: 4px;
+  margin-top: 0;
 }
 
 .deck {
   position: relative;
-  height: min(60vh, 560px);
-  max-width: 900px;
+  height: 60vh;
+  max-width: 100%;
+  width: 100%;
   margin: 0 auto;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Full-screen drag layer to initiate swipe from anywhere */
@@ -44,11 +46,10 @@
 
 .card {
   position: absolute;
-  inset: 0;
-  margin: auto;
-  height: 85%;
-  width: auto;
-  aspect-ratio: 63 / 88; /* playing card ratio ~0.716 */
+  width: min(720px, 92vw);
+  min-height: 400px;
+  max-height: 88vh;
+  height: auto;
   background: var(--surface, #161616);
   border-radius: 16px;
   border: 1px solid rgba(255,255,255,0.1);
@@ -78,7 +79,7 @@
   background-image: url('./img/rubber.svg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 70%;
+  background-size: 30%;
   border: 1px dashed rgba(255,255,255,0.12);
 }
 
@@ -122,9 +123,10 @@
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.5);
-  display: grid;
-  place-items: center;
-  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
   z-index: 1000;
 }
 
@@ -298,41 +300,46 @@
 /* Адаптация для планшетов (до 768px) */
 @media (max-width: 768px) {
   #root {
-    padding: 16px;
+    padding: 8px;
+  }
+
+  .app {
+    gap: 6px;
   }
 
   .brand {
-    font-size: 36px;
+    font-size: 32px;
   }
 
   .sub {
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .deck {
-    height: min(65vh, 500px);
+    height: 65vh;
   }
 
   .card {
-    height: 90%;
+    width: min(650px, 94vw);
+    min-height: 350px;
   }
 
   .card-inner {
-    padding: 20px;
+    padding: 18px;
     gap: 12px;
   }
 
   .prompt {
-    font-size: 18px;
+    font-size: 26px;
   }
 
   .hint {
-    font-size: 11px;
+    font-size: 16px;
   }
 
   .modal {
-    width: min(680px, 95vw);
-    max-height: 90vh;
+    width: min(680px, 92vw);
+    max-height: 88vh;
   }
 
   .modal-body {
@@ -351,11 +358,16 @@
 /* Адаптация для мобильных (до 480px) */
 @media (max-width: 480px) {
   #root {
-    padding: 12px;
+    padding: 4px;
+  }
+
+  .app {
+    gap: 4px;
   }
 
   .brand {
-    font-size: 28px;
+    font-size: 32px;
+    line-height: 1.2;
   }
 
   .sub {
@@ -363,80 +375,88 @@
   }
 
   .deck {
-    height: min(70vh, 480px);
+    height: 75vh;
   }
 
   .card {
-    height: 95%;
+    width: auto;
+    height: 90%;
+    aspect-ratio: 3 / 4;
+    min-height: auto;
+    max-height: none;
   }
 
   .card-inner {
-    padding: 16px;
-    gap: 10px;
+    padding: 14px;
+    gap: 8px;
   }
 
   .prompt {
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.4;
   }
 
   .hint {
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .card-labels {
-    top: 8px;
-    left: 8px;
-    right: 8px;
+    top: 6px;
+    left: 6px;
+    right: 6px;
   }
 
   .label {
-    font-size: 10px;
+    font-size: 9px;
+  }
+
+  .card-back {
+    background-size: 50%;
   }
 
   .modal {
-    width: 96vw;
-    max-height: 92vh;
+    width: 92vw;
+    max-height: 90vh;
   }
 
   .modal-header h2 {
-    font-size: 20px;
+    font-size: 22px;
   }
 
   .modal-body {
-    padding: 12px 14px;
-    gap: 10px;
+    padding: 10px 12px;
+    gap: 8px;
   }
 
   .modal-header {
-    padding: 12px 14px;
+    padding: 10px 12px;
   }
 
   .modal-actions {
-    padding: 10px 14px calc(14px + env(safe-area-inset-bottom));
+    padding: 8px 12px calc(12px + env(safe-area-inset-bottom));
   }
 
   .next-btn {
     padding: 8px 12px;
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .protection {
-    padding: 10px;
-    font-size: 14px;
+    padding: 8px;
+    font-size: 13px;
   }
 
   .final-score .score-number {
-    font-size: 36px;
+    font-size: 64px;
   }
 
   .final-message {
-    font-size: 14px !important;
+    font-size: 16px !important;
   }
 
   .progress,
   .score {
-    font-size: 12px;
-    bottom: -24px;
+    font-size: 11px;
+    bottom: -20px;
   }
 }
