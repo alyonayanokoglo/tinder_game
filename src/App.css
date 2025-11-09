@@ -35,6 +35,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Создаем новый контекст наложения для изоляции анимаций */
+  isolation: isolate;
+  will-change: transform;
 }
 
 /* Full-screen drag layer to initiate swipe from anywhere */
@@ -58,6 +61,10 @@
   display: flex;
   touch-action: none;
   overflow: hidden;
+  /* Оптимизация GPU рендеринга для анимаций */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
 }
 
 .card:active {
