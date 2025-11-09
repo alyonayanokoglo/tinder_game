@@ -16,11 +16,13 @@ export function SwipeDeck({ cases, onFinish }: Props) {
   const [lastChoice, setLastChoice] = useState<SwipeDirection | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [numCorrect, setNumCorrect] = useState(0);
+  const [swipeDirection, setSwipeDirection] = useState<SwipeDirection | null>(null);
 
   const current = useMemo(() => cases[index], [cases, index]);
 
   const handleSwipe = useCallback((dir: SwipeDirection) => {
     setLastChoice(dir);
+    setSwipeDirection(dir);
     // update score immediately based on current card
     if ((dir === 'right') === current.was) {
       setNumCorrect((n) => n + 1);
@@ -34,6 +36,7 @@ export function SwipeDeck({ cases, onFinish }: Props) {
   const handleNext = useCallback(() => {
     setShowResult(false);
     setLastChoice(null);
+    setSwipeDirection(null);
     setIndex((v) => {
       const next = v + 1;
       if (next >= cases.length) {
@@ -186,6 +189,7 @@ export function SwipeDeck({ cases, onFinish }: Props) {
             index={0} 
             onSwipe={handleSwipe} 
             dragControls={dragControls}
+            swipeDirection={swipeDirection}
           />
         )}
         {!showResult && (

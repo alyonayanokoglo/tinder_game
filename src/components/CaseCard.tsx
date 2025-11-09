@@ -1,4 +1,5 @@
-import { motion, useMotionValue, useTransform, type DragControls } from 'framer-motion';
+import { motion, useMotionValue, useTransform, useAnimate, type DragControls } from 'framer-motion';
+import { useEffect } from 'react';
 import type { CaseItem } from '../types';
 
 interface Props {
@@ -7,18 +8,28 @@ interface Props {
   onSwipe: (direction: 'left' | 'right') => void;
   isBack?: boolean; // if true, show back-side without text
   dragControls?: DragControls; // external drag start controller
+  swipeDirection?: 'left' | 'right' | null;
 }
 
-export function CaseCard({ item, index, onSwipe, isBack = false, dragControls }: Props) {
+export function CaseCard({ item, index, onSwipe, isBack = false, dragControls, swipeDirection }: Props) {
   const rotation = (index % 2 === 0 ? 1 : -1) * Math.min(index * 1.25, 5);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const tilt = useTransform(x, [-300, 0, 300], [-8, 0, 8]);
   const leftOpacity = useTransform(x, [0, -120], [0, 1]);
   const rightOpacity = useTransform(x, [0, 120], [0, 1]);
+  const [scope, animate] = useAnimate();
+
+  useEffect(() => {
+    if (swipeDirection && !isBack) {
+      const targetX = swipeDirection === 'right' ? 1000 : -1000;
+      animate(scope.current, { x: targetX, opacity: 0 }, { duration: 0.3, ease: 'easeOut' });
+    }
+  }, [swipeDirection, isBack, animate, scope]);
 
   return (
     <motion.div
+      ref={scope}
       className="card"
       style={{ zIndex: 100 - index, x, y, rotate: isBack ? rotation : tilt }}
       initial={{ scale: 0.95, y: 10, rotate: rotation }}
@@ -31,7 +42,7 @@ export function CaseCard({ item, index, onSwipe, isBack = false, dragControls }:
       dragControls={dragControls}
       dragListener={!isBack}
       dragElastic={0.4}
-      dragMomentum={true}
+      dragMomentum={false}
       dragTransition={{ bounceStiffness: 100, bounceDamping: 20 }}
       onDragEnd={(_, info) => {
         if (isBack) return;
