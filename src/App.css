@@ -361,11 +361,11 @@
 /* Адаптация для мобильных (до 480px) */
 @media (max-width: 480px) {
   #root {
-    padding: 4px;
+    padding: 16px;
   }
 
   .app {
-    gap: 4px;
+    gap: 8px;
   }
 
   .brand {
@@ -378,15 +378,22 @@
   }
 
   .deck {
-    height: 75vh;
+    height: 70vh;
+    padding: 0 16px;
+    margin-bottom: 32px;
   }
 
   .card {
-    width: auto;
-    height: 90%;
+    width: 85%;
+    max-width: 320px;
+    height: auto;
     aspect-ratio: 3 / 4;
     min-height: auto;
-    max-height: none;
+    max-height: 82vh;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .card-inner {
