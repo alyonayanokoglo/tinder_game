@@ -383,7 +383,7 @@
 
   .card {
     width: min(340px, 85vw);
-    min-height: 350px;
+    min-height: 420px;
   }
 
   .card-inner {

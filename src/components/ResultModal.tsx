@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import { motion } from 'framer-motion';
 import type { CaseItem, SwipeDirection } from '../types';
 
 interface Props {
@@ -32,15 +33,27 @@ export function ResultModal({ caseItem, chosen, onNext }: Props) {
   };
 
   const modal = (
-    <div
+    <motion.div
       className="modal-backdrop"
       role="dialog"
       aria-modal
       onClick={(e) => { if (e.target === e.currentTarget) onNext(); }}
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4, ease: "easeInOut" }}
     >
-      <div className={`modal ${isCorrect ? 'correct' : 'incorrect'}`}>
+      <motion.div 
+        className={`modal ${isCorrect ? 'correct' : 'incorrect'}`}
+        initial={{ opacity: 0, scale: 0.9, y: 40 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ 
+          duration: 0.5, 
+          ease: [0.16, 1, 0.3, 1],
+          scale: { duration: 0.4 }
+        }}
+      >
         <div className="modal-header">
           <h2 className={isCorrect ? 'correct-text' : 'incorrect-text'}>
             {isCorrect ? 'Верно' : 'Неверно'}
@@ -62,8 +75,8 @@ export function ResultModal({ caseItem, chosen, onNext }: Props) {
         <div className="modal-actions">
           <button className="next-btn" onClick={onNext}>Дальше ⏎</button>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 
   return createPortal(modal, document.body);

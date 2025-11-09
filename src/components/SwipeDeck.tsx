@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useDragControls } from 'framer-motion';
+import { useDragControls, motion } from 'framer-motion';
 import type { CaseItem, SwipeDirection } from '../types';
 import { CaseCard } from './CaseCard';
 import { ResultModal } from './ResultModal';
@@ -21,11 +21,14 @@ export function SwipeDeck({ cases, onFinish }: Props) {
 
   const handleSwipe = useCallback((dir: SwipeDirection) => {
     setLastChoice(dir);
-    setShowResult(true);
     // update score immediately based on current card
     if ((dir === 'right') === current.was) {
       setNumCorrect((n) => n + 1);
     }
+    // Задержка перед показом модального окна
+    setTimeout(() => {
+      setShowResult(true);
+    }, 200);
   }, [current]);
 
   const handleNext = useCallback(() => {
@@ -127,8 +130,24 @@ export function SwipeDeck({ cases, onFinish }: Props) {
     }
 
     return (
-      <div className="modal-backdrop" role="dialog" aria-modal>
-        <div className="modal final-modal">
+      <motion.div 
+        className="modal-backdrop" 
+        role="dialog" 
+        aria-modal
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+      >
+        <motion.div 
+          className="modal final-modal"
+          initial={{ opacity: 0, scale: 0.9, y: 40 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ 
+            duration: 0.5, 
+            ease: [0.16, 1, 0.3, 1],
+            scale: { duration: 0.4 }
+          }}
+        >
           <div className="modal-header">
             <h2 style={{color: messageColor}}>{title}</h2>
           </div>
@@ -148,26 +167,34 @@ export function SwipeDeck({ cases, onFinish }: Props) {
               Начать заново
             </button>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     );
   }
 
   return (
     <div className={`deck${showResult ? ' result-only' : ''}`} aria-hidden={showResult}>
-      {!showResult && (
-        <>
-          <div className="drag-layer" onPointerDown={startDrag} />
-          {next && (
-            <CaseCard key={`${next.id}-back`} item={next} index={1} onSwipe={handleSwipe} isBack />
-          )}
-          {top && (
-            <CaseCard key={top.id} item={top} index={0} onSwipe={handleSwipe} dragControls={dragControls} />
-          )}
-          <div className="progress">{Math.min(index + 1, cases.length)} / {cases.length}</div>
-          <div className="score">Баллы: {numCorrect}</div>
-        </>
-      )}
+      <>
+        {!showResult && <div className="drag-layer" onPointerDown={startDrag} />}
+        {next && (
+          <CaseCard key={`${next.id}-back`} item={next} index={1} onSwipe={handleSwipe} isBack />
+        )}
+        {top && (
+          <CaseCard 
+            key={top.id} 
+            item={top} 
+            index={0} 
+            onSwipe={handleSwipe} 
+            dragControls={dragControls}
+          />
+        )}
+        {!showResult && (
+          <>
+            <div className="progress">{Math.min(index + 1, cases.length)} / {cases.length}</div>
+            <div className="score">Баллы: {numCorrect}</div>
+          </>
+        )}
+      </>
       {showResult && lastChoice && current && (
         <ResultModal caseItem={current} chosen={lastChoice} onNext={handleNext} />
       )}
