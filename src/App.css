@@ -76,10 +76,10 @@
   position: absolute;
   inset: 0;
   border-radius: 16px;
-  background-image: url('./img/back.png');
+  background-image: url('./img/rubber.svg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: cover;
+  background-size: 30%;
   border: 1px dashed rgba(255,255,255,0.12);
 }
 

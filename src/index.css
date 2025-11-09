@@ -45,7 +45,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background-color: #3FC0EF;
-  background-image: url('./img/back.svg');
+  background-image: url('./img/back.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
