@@ -58,6 +58,9 @@
   display: flex;
   touch-action: none;
   overflow: hidden;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .card:active {
