@@ -78,7 +78,7 @@
   background-image: url('./img/rubber.svg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100% 100%;
+  background-size: 70%;
   border: 1px dashed rgba(255,255,255,0.12);
 }
 
@@ -88,8 +88,8 @@
 }
 
 .hint {
-  font-size: 14px;
-  opacity: 0.7;
+  font-size: 12px;
+  opacity: 0.6;
 }
 
 .card-labels {
@@ -153,6 +153,14 @@
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
+.correct-text {
+  color: #2ecc71;
+}
+
+.incorrect-text {
+  color: #ff6b6b;
+}
+
 .modal-body {
   padding: 16px 20px;
   display: grid;
@@ -174,16 +182,17 @@
   border-radius: 999px;
   font-weight: 700;
   font-size: 12px;
+  background: transparent;
 }
 
 .pill.ok {
-  background: #2ecc71;
-  color: #000;
+  border: 2px solid #2ecc71;
+  color: #2ecc71;
 }
 
 .pill.bad {
-  background: #ff6b6b;
-  color: #fff;
+  border: 2px solid #ff6b6b;
+  color: #ff6b6b;
 }
 
 .real {
@@ -229,6 +238,34 @@
   padding: 40px 16px;
 }
 
+.final-modal {
+  text-align: center;
+}
+
+.final-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 24px 0;
+}
+
+.score-number {
+  font-size: 48px;
+  font-weight: 700;
+  color: #2ecc71;
+}
+
+.score-percentage {
+  font-size: 32px;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+.final-message {
+  line-height: 1.5;
+}
+
 .progress {
   position: absolute;
   bottom: -28px;
@@ -256,4 +293,150 @@
 /* визуально приглушить колоду, когда открыт результат */
 .deck.result-only {
   pointer-events: none;
+}
+
+/* Адаптация для планшетов (до 768px) */
+@media (max-width: 768px) {
+  #root {
+    padding: 16px;
+  }
+
+  .brand {
+    font-size: 36px;
+  }
+
+  .sub {
+    font-size: 14px;
+  }
+
+  .deck {
+    height: min(65vh, 500px);
+  }
+
+  .card {
+    height: 90%;
+  }
+
+  .card-inner {
+    padding: 20px;
+    gap: 12px;
+  }
+
+  .prompt {
+    font-size: 18px;
+  }
+
+  .hint {
+    font-size: 11px;
+  }
+
+  .modal {
+    width: min(680px, 95vw);
+    max-height: 90vh;
+  }
+
+  .modal-body {
+    padding: 14px 18px;
+  }
+
+  .modal-header {
+    padding: 14px 18px;
+  }
+
+  .modal-actions {
+    padding: 12px 18px calc(16px + env(safe-area-inset-bottom));
+  }
+}
+
+/* Адаптация для мобильных (до 480px) */
+@media (max-width: 480px) {
+  #root {
+    padding: 12px;
+  }
+
+  .brand {
+    font-size: 28px;
+  }
+
+  .sub {
+    font-size: 13px;
+  }
+
+  .deck {
+    height: min(70vh, 480px);
+  }
+
+  .card {
+    height: 95%;
+  }
+
+  .card-inner {
+    padding: 16px;
+    gap: 10px;
+  }
+
+  .prompt {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .hint {
+    font-size: 10px;
+  }
+
+  .card-labels {
+    top: 8px;
+    left: 8px;
+    right: 8px;
+  }
+
+  .label {
+    font-size: 10px;
+  }
+
+  .modal {
+    width: 96vw;
+    max-height: 92vh;
+  }
+
+  .modal-header h2 {
+    font-size: 20px;
+  }
+
+  .modal-body {
+    padding: 12px 14px;
+    gap: 10px;
+  }
+
+  .modal-header {
+    padding: 12px 14px;
+  }
+
+  .modal-actions {
+    padding: 10px 14px calc(14px + env(safe-area-inset-bottom));
+  }
+
+  .next-btn {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .protection {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .final-score .score-number {
+    font-size: 36px;
+  }
+
+  .final-message {
+    font-size: 14px !important;
+  }
+
+  .progress,
+  .score {
+    font-size: 12px;
+    bottom: -24px;
+  }
 }

@@ -57,7 +57,7 @@ export function CaseCard({ item, index, onSwipe, isBack = false, dragControls }:
             <motion.span className="label right" style={{ opacity: rightOpacity }}>Было</motion.span>
           </div>
           <p className="prompt">{item.prompt}</p>
-          <div className="hint">Свайп вправо/вверх — Было, влево/вниз — Не было. Стрелки ←/→ тоже работают.</div>
+          <div className="hint">Свайп вправо — Было, влево — Не было.</div>
         </div>
       )}
     </motion.div>

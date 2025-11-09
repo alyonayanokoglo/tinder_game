@@ -11,4 +11,10 @@ export default defineConfig({
       '@fonts': fileURLToPath(new URL('./src/fonts', import.meta.url)),
     },
   },
+  server: {
+    host: 'localhost',
+    port: 5173,
+    strictPort: true,
+    open: true,
+  },
 })

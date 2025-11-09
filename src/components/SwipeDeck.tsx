@@ -36,7 +36,6 @@ export function SwipeDeck({ cases, onFinish }: Props) {
       if (next >= cases.length) {
         onFinish?.();
         try { localStorage.removeItem(STORAGE_KEY); } catch {}
-        return v; // stay on last
       }
       return next;
     });
@@ -76,21 +75,6 @@ export function SwipeDeck({ cases, onFinish }: Props) {
     return () => window.removeEventListener('keydown', onKey);
   }, [handleSwipe, showResult]);
 
-  if (!current) {
-    return (
-      <div className="done">
-        <h2>Все кейсы завершены</h2>
-        <p style={{opacity:0.8}}>Ваш результат: {numCorrect} / {cases.length}</p>
-        {numCorrect === cases.length ? (
-          <p style={{color:'#2ecc71', fontWeight:700}}>Отлично! Все ответы верные — вы молодец 🎉</p>
-        ) : (
-          <p>Можно попробовать ещё раз и улучшить результат.</p>
-        )}
-        <button onClick={() => window.location.reload()}>Начать заново</button>
-      </div>
-    );
-  }
-
   const visible = cases.slice(index, Math.min(index + 3, cases.length));
   const top = visible[0];
   const next = visible[1];
@@ -101,6 +85,58 @@ export function SwipeDeck({ cases, onFinish }: Props) {
     if (anyEvent.buttons !== undefined && anyEvent.buttons !== 1) return;
     dragControls.start(e);
   };
+
+  // Final screen when all cases are done
+  if (!current) {
+    let title = '';
+    let message = '';
+    let messageColor = '';
+    
+    if (numCorrect >= 8) {
+      // 8-9 из 9
+      title = 'Отличный результат! Ты рождён для продаж!';
+      message = 'Ты уверенно ведёшь клиента к решению и защищаешь интересы банка. Ты настоящий эксперт!';
+      messageColor = '#2ecc71';
+    } else if (numCorrect >= 6) {
+      // 6-7 из 9
+      title = 'Хорошая работа!';
+      message = 'Ты хорошо чувствуешь клиента и умеешь предлагать нужный продукт. Ещё немного — и ты в топе продаж!';
+      messageColor = '#2ecc71';
+    } else if (numCorrect >= 4) {
+      // 4-5 из 9
+      title = 'У тебя есть потенциал!';
+      message = 'Ты на правильном пути — чуть больше уверенности и внимания к потребностям клиента, и всё получится.';
+      messageColor = '#f39c12';
+    } else {
+      // 0-3 из 9
+      title = 'Всё только начинается';
+      message = 'Продажи — это навык, который растёт с практикой. Попробуй ещё раз: будь внимательнее к клиенту, и успех не заставит себя ждать!';
+      messageColor = '#ff6b6b';
+    }
+
+    return (
+      <div className="modal-backdrop" role="dialog" aria-modal>
+        <div className="modal final-modal">
+          <div className="modal-header">
+            <h2 style={{color: messageColor}}>{title}</h2>
+          </div>
+          <div className="modal-body">
+            <div className="final-score">
+              <div className="score-number">{numCorrect} / {cases.length}</div>
+            </div>
+            <p className="final-message" style={{fontSize: '16px', textAlign: 'center', marginTop: '16px', lineHeight: '1.6'}}>
+              {message}
+            </p>
+          </div>
+          <div className="modal-actions">
+            <button className="next-btn" onClick={() => window.location.reload()}>
+              Начать заново
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={`deck${showResult ? ' result-only' : ''}`} aria-hidden={showResult}>
@@ -117,7 +153,7 @@ export function SwipeDeck({ cases, onFinish }: Props) {
           <div className="score">Баллы: {numCorrect}</div>
         </>
       )}
-      {showResult && lastChoice && (
+      {showResult && lastChoice && current && (
         <ResultModal caseItem={current} chosen={lastChoice} onNext={handleNext} />
       )}
     </div>

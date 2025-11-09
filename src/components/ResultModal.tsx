@@ -42,13 +42,12 @@ export function ResultModal({ caseItem, chosen, onNext }: Props) {
     >
       <div className={`modal ${isCorrect ? 'correct' : 'incorrect'}`}>
         <div className="modal-header">
-          <h2>{isCorrect ? 'Верно!' : 'Неверно'}</h2>
+          <h2 className={isCorrect ? 'correct-text' : 'incorrect-text'}>
+            {isCorrect ? 'Верно' : 'Неверно'}
+          </h2>
         </div>
         <div className="modal-body">
           <div className="answer-line">
-            <span className={`pill ${isCorrect ? 'ok' : 'bad'}`}>
-              {isCorrect ? '✅ Верно' : '⛔ Неверно'}
-            </span>
             <span className="real">{caseItem.reality}</span>
           </div>
           <div className="section">
