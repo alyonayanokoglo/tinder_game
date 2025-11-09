@@ -17,12 +17,4 @@ export default defineConfig({
     strictPort: true,
     open: true,
   },
-  build: {
-    // Увеличиваем лимит для inline SVG, чтобы большие SVG оставались отдельными файлами
-    assetsInlineLimit: 4096,
-    // Отключаем минификацию для SVG файлов в CSS
-    cssMinify: 'lightningcss',
-  },
-  // Оптимизация обработки SVG
-  assetsInclude: ['**/*.svg'],
 })

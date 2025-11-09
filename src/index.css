@@ -50,13 +50,6 @@ body {
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
-  /* Оптимизация рендеринга SVG */
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  perspective: 1000px;
-  -webkit-perspective: 1000px;
 }
 
 h1 {
