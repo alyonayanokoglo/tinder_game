@@ -9,8 +9,6 @@ interface Props {
   onFinish?: () => void;
 }
 
-const STORAGE_KEY = 'case-progress-v1';
-
 export function SwipeDeck({ cases, onFinish }: Props) {
   const [index, setIndex] = useState(0);
   const [lastChoice, setLastChoice] = useState<SwipeDirection | null>(null);
@@ -41,40 +39,10 @@ export function SwipeDeck({ cases, onFinish }: Props) {
       const next = v + 1;
       if (next >= cases.length) {
         onFinish?.();
-        try { localStorage.removeItem(STORAGE_KEY); } catch {}
       }
       return next;
     });
   }, [cases.length, onFinish]);
-
-  // Load progress
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        const savedIndex = parsed?.index;
-        const savedCorrect = parsed?.correct;
-        // Если игра была завершена, очищаем localStorage
-        if (typeof savedIndex === 'number' && savedIndex >= cases.length) {
-          localStorage.removeItem(STORAGE_KEY);
-          return;
-        }
-        if (typeof savedIndex === 'number' && savedIndex >= 0 && savedIndex < cases.length) {
-          setIndex(savedIndex);
-        }
-        if (typeof savedCorrect === 'number' && savedCorrect >= 0) {
-          setNumCorrect(savedCorrect);
-        }
-      }
-    } catch {}
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // Save progress
-  useEffect(() => {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ index, correct: numCorrect })); } catch {}
-  }, [index, numCorrect]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -96,13 +64,6 @@ export function SwipeDeck({ cases, onFinish }: Props) {
     if (anyEvent.buttons !== undefined && anyEvent.buttons !== 1) return;
     dragControls.start(e);
   };
-
-  // Clear storage when game is finished
-  useEffect(() => {
-    if (!current) {
-      try { localStorage.removeItem(STORAGE_KEY); } catch {}
-    }
-  }, [current]);
 
   // Final screen when all cases are done
   if (!current) {
@@ -164,7 +125,6 @@ export function SwipeDeck({ cases, onFinish }: Props) {
           </div>
           <div className="modal-actions">
             <button className="next-btn" onClick={() => {
-              try { localStorage.removeItem(STORAGE_KEY); } catch {}
               window.location.reload();
             }}>
               Начать заново

@@ -63,14 +63,25 @@ export function ResultModal({ caseItem, chosen, onNext }: Props) {
           <div className="answer-line">
             <span className="real">{caseItem.reality}</span>
           </div>
-          <div className="section">
-            <div className="section-title">Как отреагировал банк</div>
-            <p>{caseItem.bankReaction}</p>
-          </div>
-          <div className="section">
-            <div className="section-title">Как защитил банк свои интересы</div>
-            <pre className="protection">{caseItem.bankProtection}</pre>
-          </div>
+          {caseItem.was && (
+            <>
+              <div className="section">
+                <div className="section-title">Как отреагировал банк</div>
+                <p>{caseItem.bankReaction}</p>
+              </div>
+              {caseItem.bankProtection && (
+                <div className="section">
+                  <div className="section-title">Как банку защитить свои интересы</div>
+                  <pre className="protection">{caseItem.bankProtection}</pre>
+                </div>
+              )}
+            </>
+          )}
+          {!caseItem.was && caseItem.bankReaction && (
+            <div className="section">
+              <p>{caseItem.bankReaction}</p>
+            </div>
+          )}
         </div>
         <div className="modal-actions">
           <button className="next-btn" onClick={onNext}>Дальше ⏎</button>

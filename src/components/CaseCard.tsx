@@ -18,6 +18,8 @@ export function CaseCard({ item, index, onSwipe, isBack = false, dragControls, s
   const tilt = useTransform(x, [-300, 0, 300], [-8, 0, 8]);
   const leftOpacity = useTransform(x, [0, -120], [0, 1]);
   const rightOpacity = useTransform(x, [0, 120], [0, 1]);
+  const leftScale = useTransform(x, [0, -120], [0.5, 1.2]);
+  const rightScale = useTransform(x, [0, 120], [0.5, 1.2]);
   const [scope, animate] = useAnimate();
 
   useEffect(() => {
@@ -67,10 +69,25 @@ export function CaseCard({ item, index, onSwipe, isBack = false, dragControls, s
         <div className="card-back" aria-hidden />
       ) : (
         <div className="card-inner">
-          <div className="card-labels">
-            <motion.span className="label left" style={{ opacity: leftOpacity }}>Не было</motion.span>
-            <motion.span className="label right" style={{ opacity: rightOpacity }}>Было</motion.span>
-          </div>
+          {/* Swipe overlays */}
+          <motion.div className="swipe-overlay swipe-left" style={{ opacity: leftOpacity }}>
+            <motion.div className="swipe-icon" style={{ scale: leftScale }}>✗</motion.div>
+          </motion.div>
+          <motion.div className="swipe-overlay swipe-right" style={{ opacity: rightOpacity }}>
+            <motion.div className="swipe-icon" style={{ scale: rightScale }}>✓</motion.div>
+          </motion.div>
+          
+          <motion.div className="card-label-left" style={{ opacity: leftOpacity }}>
+            <motion.span className="label left" style={{ scale: leftScale }}>
+              НЕ БЫЛО
+            </motion.span>
+          </motion.div>
+          <motion.div className="card-label-right" style={{ opacity: rightOpacity }}>
+            <motion.span className="label right" style={{ scale: rightScale }}>
+              БЫЛО
+            </motion.span>
+          </motion.div>
+          <h3 className="card-title">{item.title}</h3>
           <p className="prompt">{item.prompt}</p>
           <div className="hint">Свайп вправо — Было, влево — Не было.</div>
         </div>
